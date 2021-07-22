@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--$(Copyright)-->
+
+<Include>
+  <?define VersionMajor=21?>
+  <?define VersionMinor=0?>
+  <?define VersionBuildMajor=0?>
+  <?define VersionBuildMinor=0?>
+  <?define VersionSetupBuild=0?>
+
+  <?define ProductVersion=$(var.VersionMajor).$(var.VersionMinor).$(var.VersionBuildMajor).$(var.VersionSetupBuild)?>
+  <?define ProductMainName=!(loc.ProductMainName)?>
+  <?define ProductFolderMainName=$(var.ProductMainName)?>
+
+  <?define ProductName="$(var.ProductMainName) $(var.VersionMajor).$(var.VersionMinor)"?>
+  <?define ProductFolderName="$(var.ProductFolderMainName) $(var.VersionMajor).$(var.VersionMinor)"?>
+
+  <?define OemCompanyName="Nanosoft"?>
+  <?define OemDirectoryName=$(var.OemCompanyName)?>
+
+  <?define ProductRegistrySubkey="$(var.ProductFolderMainName)\$(var.VersionMajor).$(var.VersionMinor)"?>
+  <?define ProductRegistryKey="Software\$(var.OemDirectoryName)\$(var.ProductRegistrySubkey)"?>
+
+  <?define ArdIconFile=$(var.TargetName).ico?>
+  <?define AppPackageProductName=$(var.ProductName)?>
+
+  <!--
+  When product is completely new and product is not upgrade, replace:
+  - UpgradeCode
+  - ProductId
+
+  When product directory changes, and product is upgrade, replace:
+  - ProductId
+
+  When file list changes, but product directory remains, replace:
+  - ProductId
+  -->
+  
+  <?define UpgradeCode="{5F94A4E3-27EF-40B0-B4FA-F4110EF97BC3}"?>
+  <?define ProductId="{E63CA48D-A1E5-4FF0-9582-A5B8E3CD5C92}"?>
+</Include>

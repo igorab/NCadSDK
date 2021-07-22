@@ -1,0 +1,27 @@
+HKCR
+{
+	CrossCircle.CrCircleW.1 = s 'CrCircleW Class'
+	{
+		CLSID = s '{1B73E391-033C-4FBE-9231-5705EFCD27AB}'
+	}
+	CrossCircle.CrCircleW = s 'CrCircleW Class'
+	{
+		CLSID = s '{1B73E391-033C-4FBE-9231-5705EFCD27AB}'
+		CurVer = s 'CrossCircle.CrCircleW.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {1B73E391-033C-4FBE-9231-5705EFCD27AB} = s 'CrCircleW Class'
+		{
+			ProgID = s 'CrossCircle.CrCircleW.1'
+			VersionIndependentProgID = s 'CrossCircle.CrCircleW'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{C29DC0D5-B5DB-4362-84FC-4B2DEC33C39F}'
+		}
+	}
+}

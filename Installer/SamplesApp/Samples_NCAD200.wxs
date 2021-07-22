@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <ComponentGroup Id="NCAD200_family" Directory="NCAD200">
+      <Component>
+        <File Source="Packages\NCAD200.package" />
+      </Component>
+      <Component>
+        <File Id="SDK200_NCadSDK.cfg" Source="..\..\Menu\NCadSDK.cfg" />
+      </Component>
+      <Component>
+        <File Id="SDK200_NCadSDK.cuix" Source="..\..\Menu\NCadSDK.cuix" />
+      </Component>
+      <Component>
+        <File Id="SDK200_MenuRes.dll" Source="$(var.SamplesBinRoot)\$(var.Configuration) NCAD\MenuRes.dll" />
+      </Component>
+      <Component>
+        <File Id="SDK200_hello_nsf.nsf" Source="..\..\COM\NSF\hello_nsf.nsf" />
+      </Component>
+      <Component>
+        <File Id="SDK200_Tiles.lsp" Source="..\..\Lisp\Tiles\Tiles.lsp" />
+      </Component>
+      <Component>
+        <File Id="SDK200_helloworld.dcl" Source="..\..\Lisp\DCL\helloworld.dcl" />
+      </Component>
+      <Component>
+        <File Id="SDK200_helloworld.lsp" Source="..\..\Lisp\DCL\helloworld.lsp" />
+      </Component>
+      <Component>
+        <File Id="SDK200_listdialog.dcl" Source="..\..\Lisp\DCL\listdialog.dcl" />
+      </Component>
+      <Component>
+        <File Id="SDK200_listdialog.lsp" Source="..\..\Lisp\DCL\listdialog.lsp" />
+      </Component>
+      <Component>
+        <File Id="SDK200_messagebox.dcl" Source="..\..\Lisp\DCL\messagebox.dcl" />
+      </Component>
+      <Component>
+        <File Id="SDK200_messagebox.lsp" Source="..\..\Lisp\DCL\messagebox.lsp" />
+      </Component>
+      <Component>
+        <File Id="SDK200_sindialog.dcl" Source="..\..\Lisp\DCL\sindialog.dcl" />
+      </Component>
+      <Component>
+        <File Id="SDK200_sindialog.lsp" Source="..\..\Lisp\DCL\sindialog.lsp" />
+      </Component>
+      <!-- Uncomment to build multi-target installer (you will need to build SDK110 samples)
+      <Component>
+        <File Source="$(var.SamplesBinRoot)\$(var.Configuration) NCAD\HelloNRX.nrx" />
+      </Component>
+      <Component>
+        <File Source="$(var.SamplesBinRoot)\$(var.Configuration) NCAD\CrossCircle.nrx" />
+      </Component>
+      <Component>
+        <File Source="$(var.SamplesBinRoot)\$(var.Configuration) NCAD\CrossCircleUI.nrx" />
+      </Component>
+      <Component>
+        <File Source="$(var.SamplesBinRoot)\$(var.Configuration) NCAD\CrossCircleMg.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.SamplesBinRoot)\$(var.Configuration) NCAD\CrossCircleMgdList.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.SamplesBinRoot)\$(var.Configuration) NCAD\HelloHost.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.SamplesBinRoot)\$(var.Configuration) NCAD\HelloHostVB.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.SamplesBinRoot)\$(var.Configuration) MultiCAD\SymbolsMgd.dll" />
+      </Component>
+      <Component>
+        <File Source="$(var.SamplesBinRoot)\$(var.Configuration) MultiCAD\CustomObjects.dll" />
+      </Component>
+    -->
+    </ComponentGroup>
+  </Fragment>
+</Wix>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="ru-ru" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="ProductMainName" Overridable="yes">Примеры nanoCAD SDK</String>
+  <String Id="PerHostFeatureDescTemplate" Overridable="yes">Установить [ProductName] на %s</String>
+  <String Id="InstallToFeature" Overridable="yes">Установить на...</String>
+  <String Id="InstallToFeatureDescription" Overridable="yes">Установить [ProductName] на указанные платформы.</String>
+  <String Id="NoHostSelectedMessage" Overridable="yes">Необходимо выбрать установку на как минимум одну платформу.</String>
+  <String Id="NoSupportedHostFoundMessage" Overridable="yes">Программа установки не обнаружила на данном компьютере ни одной из поддерживаемых [ProductName] платформ. Пожалуйста, установите поддерживаемую платформу и запустите программу установки еще раз.</String>
+</WixLocalization>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--$(Copyright)-->
+
+<?include Product.wxi?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="$(var.ProductId)" Name="$(var.ProductName)" Language="1033" Version="$(var.ProductVersion)" Manufacturer="$(var.OemCompanyName)" UpgradeCode="$(var.UpgradeCode)">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <UIRef Id="WixUI_FeatureTree_NCadSDK" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION"/>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Component Id="ProductRegistryKey">
+        <RegistryKey Root="HKLM" Key="$(var.ProductRegistryKey)" />
+        <RegistryValue Id="InstallPath" Root="HKLM" Key="$(var.ProductRegistryKey)" Name="InstallLocation" Value="[[WIXUI_INSTALLDIR]]" Action="write" Type="string"/>
+        <RegistryValue Id="InstallerBuild" Root="HKLM" Key="$(var.ProductRegistryKey)" Name="InstallerBuild" Value="$(var.VersionSetupBuild)" Action="write" Type="string"/>
+      </Component>
+
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="VendorFolder" Name="$(var.OemDirectoryName)">
+          <Directory Id="INSTALLLOCATION" Name="$(var.ProductFolderName)">
+            <Directory Id="NCAD80" Name="NCAD80"/>
+            <Directory Id="NCAD80x64" Name="NCAD80x64"/>
+            <Directory Id="NCAD101" Name="NCAD101"/>
+            <Directory Id="NCAD101x64" Name="NCAD101x64"/>
+            <Directory Id="NCAD110" Name="NCAD110"/>
+            <Directory Id="NCAD110x64" Name="NCAD110x64"/>
+            <Directory Id="NCAD200" Name="NCAD200"/>
+            <Directory Id="NCAD200x64" Name="NCAD200x64"/>
+            <Directory Id="NCAD210" Name="NCAD210"/>
+            <Directory Id="NCAD210x64" Name="NCAD210x64"/>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="InstallTo" Title="!(loc.InstallToFeature)" Description="!(loc.InstallToFeatureDescription)" Level="1" Display="expand" ConfigurableDirectory="INSTALLLOCATION">
+      <ComponentRef Id="ProductRegistryKey" />
+      <Feature Id="NCAD80" Title="NCAD80" Level="0"  Display="hidden">
+        <ComponentGroupRef Id="NCAD80_family" />
+      </Feature>
+      <Feature Id="NCAD80x64" Title="NCAD80x64" Level="0"  Display="hidden">
+        <ComponentGroupRef Id="NCAD80x64_family" />
+      </Feature>
+      <Feature Id="NCAD101" Title="NCAD101" Level="0"  Display="hidden">
+        <ComponentGroupRef Id="NCAD101_family" />
+      </Feature>
+      <Feature Id="NCAD101x64" Title="NCAD101x64" Level="0"  Display="hidden">
+        <ComponentGroupRef Id="NCAD101x64_family" />
+      </Feature>
+      <Feature Id="NCAD110" Title="NCAD110" Level="0"  Display="hidden">
+        <ComponentGroupRef Id="NCAD110_family" />
+      </Feature>
+      <Feature Id="NCAD110x64" Title="NCAD110x64" Level="0"  Display="hidden">
+        <ComponentGroupRef Id="NCAD110x64_family" />
+      </Feature>
+      <Feature Id="NCAD200" Title="NCAD200" Level="0"  Display="hidden">
+        <ComponentGroupRef Id="NCAD200_family" />
+      </Feature>
+      <Feature Id="NCAD200x64" Title="NCAD200x64" Level="0"  Display="hidden">
+        <ComponentGroupRef Id="NCAD200x64_family" />
+      </Feature>
+      <Feature Id="NCAD210" Title="NCAD210" Level="0"  Display="hidden">
+        <ComponentGroupRef Id="NCAD210_family" />
+      </Feature>
+      <Feature Id="NCAD210x64" Title="NCAD210x64" Level="0"  Display="hidden">
+        <ComponentGroupRef Id="NCAD210x64_family" />
+      </Feature>
+    </Feature>
+
+    <Property Id="ARPPRODUCTICON" Value="ProductIcon" />
+    <Icon Id="ProductIcon" SourceFile="$(var.ArdIconFile)"/>
+    <Property Id="ProductRegistryKey" Value="$(var.ProductRegistryKey)" />
+    <Property Id="APPPACKAGE_PRODUCTNAME" Value="$(var.AppPackageProductName)" />
+    <Property Id="CAMessageTitleTemplate" Value="$(var.ProductName)" />
+    <Property Id="NoHostSelectedMessage" Value="!(loc.NoHostSelectedMessage)" />
+    <Property Id="PerHostFeatureDescTemplate" Value="!(loc.PerHostFeatureDescTemplate)" />
+    <Property Id="NoSupportedHostFoundMessage" Value="!(loc.NoSupportedHostFoundMessage)" />
+
+    <WixVariable Id="WixUIBannerBmp" Value="ncadsdk_small.bmp"/>
+    <WixVariable Id="WixUIDialogBmp" Value="ncadsdk_big.bmp"/>
+    <WixVariable Id="WixUILicenseRtf" Value="ReplaceMe_License.rtf"/>
+
+    <AdminUISequence>
+      <LaunchConditions/>
+    </AdminUISequence>
+    <AdminExecuteSequence>
+      <LaunchConditions/>
+    </AdminExecuteSequence>
+
+    <CustomTable Id="SupportedHosts">
+      <Column Id="HostOEM" PrimaryKey="yes" Type="string"/>
+      <Column Id="HostKey" PrimaryKey="yes" Type="string"/>
+      <Column Id="KeyFlags" PrimaryKey="yes" Type="int" Width="4"/>
+      <Column Id="_Feature" Type="string" KeyTable="Feature" KeyColumn="1" Width="38" Nullable="yes"/>
+      <Column Id="APIVersion" PrimaryKey="no" Type="string"/>
+
+      <Row>
+        <Data Column="HostOEM">7</Data>
+        <Data Column="HostKey">Software\Nanosoft</Data>
+        <Data Column="KeyFlags">0</Data>
+        <Data Column="_Feature">NCAD80</Data>
+        <Data Column="APIVersion">800.000</Data>
+      </Row>
+      <Row>
+        <Data Column="HostOEM">8</Data>
+        <Data Column="HostKey">Software\Nanosoft</Data>
+        <Data Column="KeyFlags">256</Data>
+        <Data Column="_Feature">NCAD80x64</Data>
+        <Data Column="APIVersion">800.000</Data>
+      </Row>
+      <Row>
+        <Data Column="HostOEM">9</Data>
+        <Data Column="HostKey">Software\Nanosoft</Data>
+        <Data Column="KeyFlags">0</Data>
+        <Data Column="_Feature">NCAD101</Data>
+        <Data Column="APIVersion">1000.100</Data>
+      </Row>
+      <Row>
+        <Data Column="HostOEM">10</Data>
+        <Data Column="HostKey">Software\Nanosoft</Data>
+        <Data Column="KeyFlags">256</Data>
+        <Data Column="_Feature">NCAD101x64</Data>
+        <Data Column="APIVersion">1000.100</Data>
+      </Row>
+      <Row>
+        <Data Column="HostOEM">11</Data>
+        <Data Column="HostKey">Software\Nanosoft</Data>
+        <Data Column="KeyFlags">0</Data>
+        <Data Column="_Feature">NCAD110</Data>
+        <Data Column="APIVersion">1100.000</Data>
+      </Row>
+      <Row>
+        <Data Column="HostOEM">12</Data>
+        <Data Column="HostKey">Software\Nanosoft</Data>
+        <Data Column="KeyFlags">256</Data>
+        <Data Column="_Feature">NCAD110x64</Data>
+        <Data Column="APIVersion">1100.000</Data>
+      </Row>
+      <Row>
+        <Data Column="HostOEM">13</Data>
+        <Data Column="HostKey">Software\Nanosoft</Data>
+        <Data Column="KeyFlags">0</Data>
+        <Data Column="_Feature">NCAD200</Data>
+        <Data Column="APIVersion">2000.000</Data>
+      </Row>
+      <Row>
+        <Data Column="HostOEM">14</Data>
+        <Data Column="HostKey">Software\Nanosoft</Data>
+        <Data Column="KeyFlags">256</Data>
+        <Data Column="_Feature">NCAD200x64</Data>
+        <Data Column="APIVersion">2000.000</Data>
+      </Row>
+      <Row>
+        <Data Column="HostOEM">15</Data>
+        <Data Column="HostKey">Software\Nanosoft</Data>
+        <Data Column="KeyFlags">0</Data>
+        <Data Column="_Feature">NCAD210</Data>
+        <Data Column="APIVersion">2100.000</Data>
+      </Row>
+      <Row>
+        <Data Column="HostOEM">16</Data>
+        <Data Column="HostKey">Software\Nanosoft</Data>
+        <Data Column="KeyFlags">256</Data>
+        <Data Column="_Feature">NCAD210x64</Data>
+        <Data Column="APIVersion">2100.000</Data>
+      </Row>
+    </CustomTable>
+  </Product>
+</Wix>

@@ -1,0 +1,11 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		'%APPID%' = s 'CrossCircle'
+		'CrossCircle.dbx'
+		{
+			val AppID = s '%APPID%'
+		}
+	}
+}

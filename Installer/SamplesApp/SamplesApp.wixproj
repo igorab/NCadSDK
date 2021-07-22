@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <RunWixToolsOutOfProc>true</RunWixToolsOutOfProc>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <PlatformCPP>$(Platform)</PlatformCPP>
+    <PlatformCPP Condition=" '$(Platform)' == 'x86' ">Win32</PlatformCPP>
+    <ProductVersion>4.5</ProductVersion>
+    <ProjectGuid>{cf782a4c-22f6-4373-a0ac-47f61a575f49}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>SamplesApp</OutputName>
+    <OutputType>Package</OutputType>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <Name>SamplesApp</Name>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>$(SolutionDir)\..\bin-$(PlatformCPP)\Installer\$(Configuration)</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)\..\trash-$(PlatformCPP)\Installer\$(Configuration)</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+    <Cultures>ru-RU</Cultures>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>$(SolutionDir)\..\bin-$(PlatformCPP)\Installer\$(Configuration)</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)\..\trash-$(PlatformCPP)\Installer\$(Configuration)</IntermediateOutputPath>
+    <Cultures>ru-RU</Cultures>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);HostCA=$(SolutionDir)..\bin-$(PlatformCPP)\Installer\CA\$(Configuration)\HostCA.dll</DefineConstants>
+    <DefineConstants>$(DefineConstants);SamplesBinRoot=$(SolutionDir)..\bin-Win32\;SamplesBinRoot64=$(SolutionDir)..\bin-x64\</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Product.wxs" />
+    <Compile Include="Samples_NCAD80.wxs" />
+    <Compile Include="Samples_NCAD80x64.wxs" />
+    <Compile Include="Samples_NCAD101.wxs" />
+    <Compile Include="Samples_NCAD101x64.wxs" />
+    <Compile Include="Samples_NCAD110.wxs" />
+    <Compile Include="Samples_NCAD110x64.wxs" />
+    <Compile Include="Samples_NCAD200.wxs" />
+    <Compile Include="Samples_NCAD200x64.wxs" />
+    <Compile Include="Samples_NCAD210.wxs" />
+    <Compile Include="Samples_NCAD210x64.wxs" />
+    <Compile Include="WixUI.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Product.wxi" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="LocalStrings.wxl" />
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it.
+	Other similar extension points exist, see Wix.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
+</Project>

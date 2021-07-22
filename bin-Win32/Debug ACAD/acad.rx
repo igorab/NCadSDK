@@ -1,0 +1,8 @@
+HelloNRX.arx
+CrossCircle.dbx
+CrossCircleUI.arx
+;Постройте и загрузите следующие NET модули с помощью команды NETLOAD
+;HelloHost.dll
+;HelloHostVB.dll
+;CrossCircleMg.dll
+;CrossCircleMgdList.dll
