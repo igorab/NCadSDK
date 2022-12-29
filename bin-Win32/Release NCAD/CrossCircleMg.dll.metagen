@@ -1,0 +1,29 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly CrossCircleMg, Version=1.0.*, Culture=Инвариантный язык (Инвариантная страна): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly hostmgd, Version=1.0.*, Culture=Инвариантный язык (Инвариантная страна): 
+	hash=None, flags=None
+Assembly hostdbmgd, Version=1.0.*, Culture=Инвариантный язык (Инвариантная страна): 
+	hash=None, flags=None
+Assembly nrxgatemgd, Version=1.0.*, Culture=Инвариантный язык (Инвариантная страна): 
+	hash=None, flags=None
+Class HostMgd.Samples.MgCrCrc: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :NrxGate.DatabaseServices.Entity
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Teigha.Geometry.Vector3d mynormal 'get set' : 
+    Teigha.Geometry.Vector3d mydirection 'get set' : 
+    Teigha.Geometry.Point3d mycenter 'get set' : 
+  Methods:
+    set_mycenter(Point3d): PrivateScope, Public, HideBySig, SpecialName
+    get_mycenter(): PrivateScope, Public, HideBySig, SpecialName
+    set_mydirection(Vector3d): PrivateScope, Public, HideBySig, SpecialName
+    get_mydirection(): PrivateScope, Public, HideBySig, SpecialName
+    set_mynormal(Vector3d): PrivateScope, Public, HideBySig, SpecialName
+    get_mynormal(): PrivateScope, Public, HideBySig, SpecialName

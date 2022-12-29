@@ -1,0 +1,1 @@
+C:\NC_SDK_21.0\samples\trash-Win32\CrossCircleMg\Debug NCAD\MgCrossCircle.vcxproj.AssemblyReference.cache

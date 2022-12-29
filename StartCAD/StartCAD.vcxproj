@@ -154,6 +154,10 @@
     <NMakeReBuildCommandLine />
     <NMakeCleanCommandLine />
     <NMakeOutput />
+    <LibraryPath>C:\Autodesk\Autodesk_ObjectARX_2019_Win_64_and_32_Bit\inc;$(LibraryPath)</LibraryPath>
+    <ReferencePath>C:\Autodesk\Autodesk_ObjectARX_2019_Win_64_and_32_Bit\inc;$(ReferencePath)</ReferencePath>
+    <ExternalIncludePath>C:\Autodesk\Autodesk_ObjectARX_2019_Win_64_and_32_Bit\inc;$(ExternalIncludePath)</ExternalIncludePath>
+    <IncludePath>C:\Autodesk\Autodesk_ObjectARX_2019_Win_64_and_32_Bit\inc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release ACAD|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
@@ -170,6 +174,7 @@
     <NMakeReBuildCommandLine />
     <NMakeCleanCommandLine />
     <NMakeOutput />
+    <LibraryPath>C:\Autodesk\Autodesk_ObjectARX_2019_Win_64_and_32_Bit\inc;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>

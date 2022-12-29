@@ -462,6 +462,7 @@
     <ClCompile Include="acrxEntryPoint.cpp" />
     <ClCompile Include="command.cpp" />
     <ClCompile Include="CrossCircleJig.cpp" />
+    <ClCompile Include="CrossCircleJigConnect.cpp" />
     <ClCompile Include="CrossCircleUI.cpp" />
     <ClCompile Include="DocData.cpp" />
     <ClCompile Include="StdAfx.cpp">
@@ -478,6 +479,7 @@
   <ItemGroup>
     <ClInclude Include="command.h" />
     <ClInclude Include="CrossCircleJig.h" />
+    <ClInclude Include="CrossCircleJigConnect.h" />
     <ClInclude Include="DocData.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="StdAfx.h" />

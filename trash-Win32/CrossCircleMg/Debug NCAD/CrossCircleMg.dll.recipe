@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>C:\NC_SDK_21.0\samples\bin-Win32\Debug NCAD\CrossCircle.nrx</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\NC_SDK_21.0\samples\bin-Win32\Debug NCAD\CrossCircleMg.dll</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles />
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>

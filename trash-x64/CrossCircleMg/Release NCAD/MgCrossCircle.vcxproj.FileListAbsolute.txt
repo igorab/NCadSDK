@@ -1,1 +1,2 @@
 C:\Docs\NC_SDK_21.0.5699.3427.5753\samples\trash-x64\CrossCircleMg\Release NCAD\MgCrossCircle.vcxproj.AssemblyReference.cache
+C:\NC_SDK_21.0\samples\trash-x64\CrossCircleMg\Release NCAD\MgCrossCircle.vcxproj.AssemblyReference.cache

@@ -72,8 +72,17 @@ public:
   // - CrossCircleUI.CrCircle command (do not rename)
   static void CrossCircleUICrCircle(void)
   {
-    CrCircle();
+  	// CrCircle(); igorab
+
+      CrCircleConnect(); // igorab
   }
+
+	// igorab
+  static void CrossCircleUICrCircleConnect()
+  {
+      CrCircleConnect();
+  }
+
 } ;
 
 //-----------------------------------------------------------------------------

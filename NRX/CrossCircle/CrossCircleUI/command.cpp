@@ -31,3 +31,16 @@ void CrCircle ()
   delete pCrCicleJig;
 
 }
+
+//igorab
+void CrCircleConnect()
+{
+	AcDbCrossCircle *pCrCircleConnect = new AcDbCrossCircle();
+
+	CrossCircleJig * pCrCircleJigConnect = new CrossCircleJig();
+
+	pCrCircleJigConnect->startJig(pCrCircleConnect);
+
+	delete pCrCircleJigConnect;
+
+}

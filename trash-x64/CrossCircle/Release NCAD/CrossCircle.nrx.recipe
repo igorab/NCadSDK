@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Docs\NC_SDK_21.0.5699.3427.5753\samples\bin-x64\Release NCAD\CrossCircle.nrx</FullPath>
+      <FullPath>C:\NC_SDK_21.0\samples\bin-x64\Release NCAD\CrossCircle.nrx</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
