@@ -1,27 +1,6 @@
-//
-// Копирайт (С) 2019, ООО «Нанософт разработка». Все права защищены.
-// 
-// Данное программное обеспечение, все исключительные права на него, его
-// документация и сопроводительные материалы принадлежат ООО «Нанософт разработка».
-// Данное программное обеспечение может использоваться при разработке и входить
-// в состав разработанных программных продуктов при соблюдении условий
-// использования, оговоренных в «Лицензионном договоре присоединения
-// на использование программы для ЭВМ «Платформа nanoCAD»».
-// 
-// Данное программное обеспечение защищено в соответствии с законодательством
-// Российской Федерации об интеллектуальной собственности и международными
-// правовыми актами.
-// 
-// Используя данное программное обеспечение,  его документацию и
-// сопроводительные материалы вы соглашаетесь с условиями использования,
-// указанными выше. 
-//
-
-//-----------------------------------------------------------------------------
 #include "StdAfx.h"
 #include "CrossCircleJig.h"
 
-//-----------------------------------------------------------------------------
 CrossCircleJig::CrossCircleJig () : AcEdJig (),
 mCurrentInputLevel(0), mpCrCircle(NULL)
 {
@@ -177,155 +156,74 @@ Adesk::Boolean CrossCircleJig::update ()
   return (updateDimData ()) ;
 }
 
-//-----------------------------------------------------------------------------
-//- Jigged entity pointer return
+
+// Jigged entity pointer return
 AcDbEntity *CrossCircleJig::entity () const
 {
-  return ((AcDbEntity *)mpCrCircle) ;
+	return ((AcDbEntity *)mpCrCircle) ;
 }
 
 //-----------------------------------------------------------------------------
 //- Dynamic dimension data setup
 AcDbDimDataPtrArray *CrossCircleJig::dimData (const double dimScale)
 {
-
-  /* SAMPLE CODE:
-  AcDbAlignedDimension *dim =new AcDbAlignedDimension () ;
-  dim->setDatabaseDefaults () ;
-  dim->setNormal (AcGeVector3d::kZAxis) ;
-  dim->setElevation (0.0) ;
-  dim->setHorizontalRotation (0.0) ;
-  dim->setXLine1Point (m_originPoint) ;
-  dim->setXLine2Point (m_lastPoint) ;
-  //- Get the dimPoint, first the midpoint
-  AcGePoint3d dimPoint =m_originPoint + ((m_lastPoint - m_originPoint) / 2.0) ;
-  //- Then the offset
-  dim->setDimLinePoint (dimPoint) ;
-  dim->setDimtad (1) ;
-
-  AcDbDimData *dimData = new AcDbDimData (dim) ;
-  //AppData *appData =new AppData (1, dimScale) ;
-  //dimData.setAppData (appData) ;
-  dimData->setDimFocal (true) ;
-  dimData->setDimHideIfValueIsZero (true) ;
-
-  //- Check to see if it is required
-  if ( getDynDimensionRequired (m_inputNumber) )
-  dimData->setDimInvisible (false) ;
-  else
-  dimData->setDimInvisible (true) ;
-
-  //- Make sure it is editable TODO: 
-  dimData->setDimEditable (true) ;
-  mDimData.append (dimData) ;
-
-  return (&mDimData) ;
-  */
-  return (NULL) ;
+	return (NULL);
 }
 
-//-----------------------------------------------------------------------------
-//- Dynamic dimension data update
+// Dynamic dimension data update
 Acad::ErrorStatus CrossCircleJig::setDimValue (const AcDbDimData *pDimData, const double dimValue)
 {
-  Acad::ErrorStatus es =Acad::eOk ;
+	Acad::ErrorStatus es = Acad::eOk ;
 
-  /* SAMPLE CODE:
-  //- Convert the const pointer to non const
-  AcDbDimData *dimDataNC =const_cast<AcDbDimData *>(pDimData) ;
-  int inputNumber =-1 ;
-  //- Find the dim data being passed so we can determine the input number
-  if ( mDimData.find (dimDataNC, inputNumber) )
-  {
-  //- Now get the dimension
-  AcDbDimension *pDim =(AcDbDimension *)dimDataNC->dimension () ;
-  //- Check it's the type of dimension we want
-  AcDbAlignedDimension *pAlnDim =AcDbAlignedDimension::cast (pDim) ;
-  //- If ok
-  if ( pAlnDim )
-  {
-  //- Extract the dimensions as they are now
-  AcGePoint3d dimStart =pAlnDim->xLine1Point () ;
-  AcGePoint3d dimEnd =pAlnDim->xLine2Point () ;
-  //- Lets get the new point entered by the user 
-  AcGePoint3d dimEndNew =dimStart + (dimEnd - dimStart).normalize () * dimValue ;
-  //- Finally set the end dim point
-  pAlnDim->setXLine2Point (dimEndNew) ;
-  //- Now update the jig data to reflect the dynamic dimension input
-  mInputPoints [mCurrentInputLevel] =dimEndNew ;
-  }
-  }*/
-  return (es) ;
+	return (es) ;
 }
 
-//-----------------------------------------------------------------------------
-//- Various helper functions
-//- Dynamic dimdata update function
-Adesk::Boolean CrossCircleJig::updateDimData ()
+// Various helper functions
+// Dynamic dimdata update function
+Adesk::Boolean CrossCircleJig::updateDimData()
 {
-  //- Check the dim data store for validity
-  if ( mDimData.length () <= 0 )
-    return (true) ;
+	if (mDimData.length () <= 0)
+		return (true) ;
 
-  /* SAMPLE CODE :
-  //- Extract the individual dimData
-  AcDbDimData *dimData =mDimData [m_inputNumber] ;
-  //- Now get the dimension
-  AcDbDimension *pDim =(AcDbDimension *)dimData->dimension () ;
-  //- Check it's the type of dimension we want
-  AcDbAlignedDimension *pAlnDim =AcDbAlignedDimension::cast (pDim) ;
-  //- If ok
-  if ( pAlnDim )
-  {
-  //- Check to see if it is required
-  if ( getDynDimensionRequired (m_inputNumber) )
-  dimData->setDimInvisible (false) ;
-  else
-  dimData->setDimInvisible (true) ;
-  pAlnDim->setXLine1Point (m_originPoint) ;
-  pAlnDim->setXLine2Point (m_lastPoint) ;
-  //- Get the dimPoint, first the midpoint
-  AcGePoint3d dimPoint =m_originPoint + ((m_lastPoint - m_originPoint) / 2.0) ;
-  //- Then the offset
-  pAlnDim->setDimLinePoint (dimPoint) ;
-  } */
-  return (true) ;
+	return (true) ;
 }
 
-//-----------------------------------------------------------------------------
-//- Std input to get a point with no rubber band
+// Std input to get a point with no rubber band
 AcEdJig::DragStatus CrossCircleJig::GetStartPoint ()
 {
-  AcGePoint3d newPnt ;
-  //- Get the point 
-  AcEdJig::DragStatus status =acquirePoint (newPnt) ;
-  //- If valid input
-  if ( status == AcEdJig::kNormal )
-  {
-    //- If there is no difference
-    if ( newPnt.isEqualTo (mInputPoints [mCurrentInputLevel]) )
-      return (AcEdJig::kNoChange) ;
-    //- Otherwise update the point
-    mInputPoints [mCurrentInputLevel] =newPnt ;
-  }
-  return (status) ;
+	AcGePoint3d newPnt ;
+
+	AcEdJig::DragStatus status = acquirePoint (newPnt);
+
+	if ( status == AcEdJig::kNormal )
+	{
+		if (newPnt.isEqualTo (mInputPoints[mCurrentInputLevel]))
+			return (AcEdJig::kNoChange) ;
+
+		// Otherwise update the point
+		mInputPoints [mCurrentInputLevel] = newPnt;
+	}
+
+	return (status) ;
 }
 
-//-----------------------------------------------------------------------------
+
 //- Std input to get a point with rubber band from point
 AcEdJig::DragStatus CrossCircleJig::GetNextPoint ()
 {
-  AcGePoint3d newPnt ;
-  //- Get the point 
-  AcEdJig::DragStatus status =acquirePoint (newPnt, mInputPoints [mCurrentInputLevel-1]) ;
-  //- If valid input
-  if ( status == AcEdJig::kNormal )
-  {
-    //- If there is no difference
-    if ( newPnt.isEqualTo (mInputPoints [mCurrentInputLevel]) )
-      return (AcEdJig::kNoChange) ;
-    //- Otherwise update the point
-    mInputPoints [mCurrentInputLevel] =newPnt ;
-  }
-  return (status) ;
+	AcGePoint3d newPnt ;
+	// Get the point 
+	AcEdJig::DragStatus status =acquirePoint (newPnt, mInputPoints [mCurrentInputLevel-1]) ;
+
+	// If valid input
+	if ( status == AcEdJig::kNormal )
+	{
+		// If there is no difference
+		if ( newPnt.isEqualTo (mInputPoints [mCurrentInputLevel]) )
+            return (AcEdJig::kNoChange);
+
+		//- Otherwise update the point
+		mInputPoints [mCurrentInputLevel] = newPnt;
+	}
+	return (status) ;
 }

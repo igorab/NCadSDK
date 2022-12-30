@@ -67,50 +67,48 @@ AcEdJig::DragStatus CrossCircleJigConnect::startJig(AcDbCrossCircle *pEntity)
 	        break;
 	}
 
-  if ( appendOk )
-    append();
-  else
-    delete mpCrCircle;
+	if ( appendOk )
+		append();
+	else
+		delete mpCrCircle;
 
-  return (status) ;
+	return (status);
 }
 
-//-----------------------------------------------------------------------------
-//- Input sampler
+
 AcEdJig::DragStatus CrossCircleJigConnect::sampler()
 {
-  //- Setup the user input controls for each input
-  AcEdJig::UserInputControls userInputControls [2] =
-  {
-    (UserInputControls)	(AcEdJig::kAccept3dCoordinates 
-    | AcEdJig::kNoNegativeResponseAccepted),
-    (UserInputControls) (AcEdJig::kAccept3dCoordinates
-    | AcEdJig::kGovernedByOrthoMode
-    | AcEdJig::kAcceptOtherInputString  
-    | AcEdJig::kNoNegativeResponseAccepted
-    | AcEdJig::kNullResponseAccepted
-    | AcEdJig::kNoZeroResponseAccepted)
-  } ;
-  setUserInputControls (userInputControls [mCurrentInputLevel]) ;
+	AcEdJig::UserInputControls userInputControls [2] =
+	{
+		(UserInputControls)	(AcEdJig::kAccept3dCoordinates | AcEdJig::kNoNegativeResponseAccepted),
+		(UserInputControls) (AcEdJig::kAccept3dCoordinates
+			| AcEdJig::kGovernedByOrthoMode
+			| AcEdJig::kAcceptOtherInputString  
+			| AcEdJig::kNoNegativeResponseAccepted
+			| AcEdJig::kNullResponseAccepted
+			| AcEdJig::kNoZeroResponseAccepted)
+	} ;
 
-  AcEdJig::DragStatus status =AcEdJig::kCancel ;
-  //- Check the current input number to see which input to do
-  switch ( mCurrentInputLevel+1 )
-  {
-  case 1:
-    status =GetStartPoint () ;
-    break ;
-  case 2:
-    status =GetNextPoint () ;
-    break ;
-  default:
-    break ;
-  }
-  return (status) ;
+	setUserInputControls (userInputControls [mCurrentInputLevel]) ;
+
+	AcEdJig::DragStatus status =AcEdJig::kCancel ;
+
+	switch ( mCurrentInputLevel+1 )
+	{
+		case 1:
+		status =GetStartPoint () ;
+		break ;
+		case 2:
+		status =GetNextPoint () ;
+		break ;
+		default:
+		break ;
+	}
+
+	return (status) ;
 }
 
-//-----------------------------------------------------------------------------
-//- Jigged entity update
+
 Adesk::Boolean CrossCircleJigConnect::update ()
 {
   //- Check the current input number to see which update to do

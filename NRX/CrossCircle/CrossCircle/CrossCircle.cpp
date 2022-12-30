@@ -1,22 +1,3 @@
-//
-// Копирайт (С) 2019, ООО «Нанософт разработка». Все права защищены.
-// 
-// Данное программное обеспечение, все исключительные права на него, его
-// документация и сопроводительные материалы принадлежат ООО «Нанософт разработка».
-// Данное программное обеспечение может использоваться при разработке и входить
-// в состав разработанных программных продуктов при соблюдении условий
-// использования, оговоренных в «Лицензионном договоре присоединения
-// на использование программы для ЭВМ «Платформа nanoCAD»».
-// 
-// Данное программное обеспечение защищено в соответствии с законодательством
-// Российской Федерации об интеллектуальной собственности и международными
-// правовыми актами.
-// 
-// Используя данное программное обеспечение,  его документацию и
-// сопроводительные материалы вы соглашаетесь с условиями использования,
-// указанными выше. 
-//
-
 //-----------------------------------------------------------------------------
 //- CrossCircle.cpp : Initialization functions
 //-----------------------------------------------------------------------------
@@ -30,10 +11,9 @@
 //-----------------------------------------------------------------------------
 class CCrossCircleModule : public CAtlDllModuleT<CCrossCircleModule>
 {
-
 public :
-  DECLARE_LIBID(LIBID_CrossCircleLib)
-  DECLARE_REGISTRY_APPID_RESOURCEID(IDR_CROSSCIRCLE, "{271F1ED9-ADB3-4ADD-8ECF-DD5DC300DA3A}")
+	  DECLARE_LIBID(LIBID_CrossCircleLib)
+	  DECLARE_REGISTRY_APPID_RESOURCEID(IDR_CROSSCIRCLE, "{271F1ED9-ADB3-4ADD-8ECF-DD5DC300DA3A}")
 } ;
 
 CCrossCircleModule _AtlModule ;
@@ -41,26 +21,28 @@ CCrossCircleModule _AtlModule ;
 //-----------------------------------------------------------------------------
 //- DLL Entry Point
 extern "C"
-BOOL WINAPI DllMain (HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
+BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 {
   //- Remove this if you use lpReserved
   UNREFERENCED_PARAMETER(lpReserved) ;
 
   if ( dwReason == DLL_PROCESS_ATTACH )
   {
-    _hdllInstance =hInstance ;
-  } else if ( dwReason == DLL_PROCESS_DETACH )
+    _hdllInstance = hInstance ;
+  }
+  else if ( dwReason == DLL_PROCESS_DETACH )
   {
   }
-  return (_AtlModule.DllMain (dwReason, lpReserved)) ; 
+
+  return (_AtlModule.DllMain(dwReason, lpReserved)); 
 }
 
 //-----------------------------------------------------------------------------
 //- Used to determine whether the DLL can be unloaded by OLE
 STDAPI DllCanUnloadNow (void)
 {
-  HRESULT hr =(_AtlModule.GetLockCount () == 0 ? S_OK : S_FALSE) ;
-  return (hr) ;
+	HRESULT hr = (_AtlModule.GetLockCount () == 0 ? S_OK : S_FALSE) ;
+	return (hr);
 }
 
 //-----------------------------------------------------------------------------

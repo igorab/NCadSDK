@@ -1,25 +1,4 @@
-//
-// Копирайт (С) 2019, ООО «Нанософт разработка». Все права защищены.
-// 
-// Данное программное обеспечение, все исключительные права на него, его
-// документация и сопроводительные материалы принадлежат ООО «Нанософт разработка».
-// Данное программное обеспечение может использоваться при разработке и входить
-// в состав разработанных программных продуктов при соблюдении условий
-// использования, оговоренных в «Лицензионном договоре присоединения
-// на использование программы для ЭВМ «Платформа nanoCAD»».
-// 
-// Данное программное обеспечение защищено в соответствии с законодательством
-// Российской Федерации об интеллектуальной собственности и международными
-// правовыми актами.
-// 
-// Используя данное программное обеспечение,  его документацию и
-// сопроводительные материалы вы соглашаетесь с условиями использования,
-// указанными выше. 
-//
-
-//-----------------------------------------------------------------------------
-//----- CrCircleW.cpp : Implementation of CCrCircleW
-//-----------------------------------------------------------------------------
+//CrCircleW.cpp : Implementation of CCrCircleW
 #include "StdAfx.h"
 #include "CrCircleW.h"
 #include "AcDbCrossCircle.h"
@@ -37,74 +16,77 @@
 
 #define CHECKOUTPARAM(x) if (x==NULL) return E_POINTER;
 
-//----- CCrCircleW
-//-----------------------------------------------------------------------------
+//CCrCircleW
 STDMETHODIMP CCrCircleW::InterfaceSupportsErrorInfo (REFIID riid)
 {
-  static const IID * arr [] =
-  {
-    &IID_ICrCircleW
-  } ;
+	static const IID * arr[] =
+	{
+		&IID_ICrCircleW
+	};
 
-  for ( int i =0 ; i < sizeof (arr) / sizeof (arr [0]) ; i++ )
-  {
-    if ( InlineIsEqualGUID (*arr [i], riid) )
-      return (S_OK) ;
-  }
-  return (S_FALSE) ;
+	for (int i=0; i < sizeof(arr)/sizeof(arr[0]); i++ )
+	{
+		if (InlineIsEqualGUID(*arr[i], riid))
+			return (S_OK);
+	}
+
+  return (S_FALSE);
 }
 
-//-----------------------------------------------------------------------------
 //IAcadBaseObjectImpl
 HRESULT CCrCircleW::CreateNewObject (AcDbObjectId &objId, AcDbObjectId &ownerId, TCHAR *keyName)
 {
-  try
-  {
-    HRESULT hr ;
-    if ( FAILED(hr =CreateObject (ownerId, keyName)) )
-      throw hr ;
-    if ( FAILED(hr =AddToDb (objId, ownerId, keyName)) )
-      throw hr ;
-  } 
-  catch( HRESULT hr )
-  {
-    return (hr) ;
-  }
-  return (S_OK) ;
+	try
+	{
+		HRESULT hr;
+
+		if (FAILED(hr = CreateObject(ownerId, keyName)))
+		  throw hr ;
+
+		if (FAILED(hr = AddToDb(objId, ownerId, keyName)))
+		  throw hr ;
+	} 
+	catch(HRESULT hr)
+	{
+		return (hr) ;
+	}
+
+	return (S_OK) ;
 }
 
-//-----------------------------------------------------------------------------
 //IAcadBaseObject2Impl
 STDMETHODIMP CCrCircleW::ForceDbResident (VARIANT_BOOL *forceDbResident)
 {
-  if ( forceDbResident == NULL )
-    return (E_POINTER) ;
-  //----- Return ACAX_VARIANT_TRUE if the object must be database resident to be functional
-  *forceDbResident =ACAX_VARIANT_FALSE ;
-  return (S_OK) ;
+	if (forceDbResident == NULL )
+		return (E_POINTER);
+
+	*forceDbResident = ACAX_VARIANT_FALSE ;
+	return (S_OK) ;
 }
 
-STDMETHODIMP CCrCircleW::CreateObject (AcDbObjectId ownerId /*=AcDbObjectId::kNull*/, TCHAR *keyName /*=NULL*/)
+STDMETHODIMP CCrCircleW::CreateObject(AcDbObjectId ownerId, TCHAR *keyName)
 {
-  try
-  {
-    Acad::ErrorStatus es ;
-    AcDbObjectPointer<AcDbCrossCircle> obj ;
-    if ( (es =obj.create ()) != Acad::eOk )
-      throw es ;
+	try
+	{
+		Acad::ErrorStatus   es;
+		AcDbObjectPointer<AcDbCrossCircle>   obj;
 
-    obj->setDatabaseDefaults (ownerId.database ()) ;
+		if ((es = obj.create()) != Acad::eOk)
+		  throw es ;
 
-    AcDbCrossCircle *pTmp =NULL ;
-    obj.release (pTmp) ;
+		obj->setDatabaseDefaults(ownerId.database());
 
-    SetObject ((AcDbObject *&)pTmp) ;
-  }
-  catch ( const Acad::ErrorStatus )
-  {
-    return (Error (L"Не удалось создать AcDbCrossCircle", IID_ICrCircleW, E_FAIL)) ;
-  }
-  return (S_OK) ;
+		AcDbCrossCircle *pTmp = NULL;
+		obj.release(pTmp);
+
+		SetObject ((AcDbObject *&)pTmp);
+	}
+	catch ( const Acad::ErrorStatus )
+	{
+		return (Error (L"Не удалось создать AcDbCrossCircle", IID_ICrCircleW, E_FAIL)) ;
+	}
+
+	return (S_OK) ;
 }
 
 STDMETHODIMP CCrCircleW::AddToDb (AcDbObjectId &objId, AcDbObjectId ownerId /*=AcDbObjectId::kNull*/, TCHAR *keyName /*=NULL*/)
