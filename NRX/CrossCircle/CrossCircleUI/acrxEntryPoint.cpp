@@ -48,8 +48,8 @@ class CCrossCircleUIApp : public AcRxArxApp
 	// - CrossCircleUI.CrCircle command (do not rename)
 	static void CrossCircleUICrCircle(void)
 	{
-		//CrCircle(); igorab
-		CrCircleConnect(); // igorab
+		CrCircle(); 
+		//CrCircleConnect(); // igorab
 	}
 
 	// igorab

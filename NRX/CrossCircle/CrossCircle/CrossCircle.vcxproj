@@ -560,6 +560,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AcDbCrossCircle.cpp" />
+    <ClCompile Include="AcDbCrossCircleConnector.cpp" />
     <ClCompile Include="acrxEntryPoint.cpp" />
     <ClCompile Include="CrCircleW.cpp" />
     <ClCompile Include="CrossCircle.cpp" />
@@ -579,6 +580,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AcDbCrossCircle.h" />
+    <ClInclude Include="AcDbCrossCircleConnector.h" />
     <ClInclude Include="CrCircleW.h" />
     <ClInclude Include="CrossCircle.h" />
     <ClInclude Include="resource.h" />

@@ -16,7 +16,7 @@ devenv NCadSDK.sln /Build "Release NCAD|x64"
 :ENDNCAD
 
 
-if "%OARXROOT2021%"=="" goto ENDACAD
+if "%OARXROOT%"=="" goto ENDACAD
 
 devenv NCADSDK.sln /Build "Debug ACAD|x64"
 devenv NCADSDK.sln /Build "Release ACAD|x64"

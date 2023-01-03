@@ -1,43 +1,39 @@
-//-----------------------------------------------------------------------------
-//- CrossCircleJig.h
-#include "..\CrossCircle\AcDbCrossCircle.h"
-
+#include "..\CrossCircle\AcDbCrossCircleConnector.h"
 #pragma once
 
 //----igorab-----------
 class CrossCircleJigConnect : public AcEdJig
 {
-  int mCurrentInputLevel ;
-  
-  AcDbDimDataPtrArray mDimData ;
+	int  mCurrentInputLevel;
+	AcDbDimDataPtrArray  mDimData;
 
 public:
   
-  AcGePoint3dArray mInputPoints ;
+	AcGePoint3dArray mInputPoints ;
 
-  AcDbCrossCircle * mpCrCircle; // Entity being jigged
+	AcDbCrossCircleConnector * mpCrCircle; 
 
-  CrossCircleJigConnect();
+	CrossCircleJigConnect();
 
-  ~ CrossCircleJigConnect();
+	~CrossCircleJigConnect();
 
-  AcEdJig::DragStatus startJig (AcDbCrossCircle *pEntityToJig) ;
+	AcEdJig::DragStatus startJig(AcDbCrossCircleConnector *pEntityToJig) ;
 
 protected:
   
-  virtual DragStatus sampler () ;
-  
-  virtual Adesk::Boolean update () ;
-  
-  virtual AcDbEntity *entity () const ;
+	virtual DragStatus sampler();
 
-  virtual AcDbDimDataPtrArray *dimData (const double dimScale) ;
-  
-  virtual Acad::ErrorStatus setDimValue (const AcDbDimData *pDimData, const double dimValue) ;
+	virtual Adesk::Boolean update();
 
-  virtual Adesk::Boolean updateDimData () ;
+	virtual AcDbEntity *entity() const;
 
-  AcEdJig::DragStatus GetStartPoint () ;
-  
-  AcEdJig::DragStatus GetNextPoint () ;
+	virtual AcDbDimDataPtrArray *dimData(const double dimScale);
+
+	virtual Acad::ErrorStatus setDimValue(const AcDbDimData *pDimData, const double dimValue);
+
+	virtual Adesk::Boolean updateDimData();
+
+	AcEdJig::DragStatus GetStartPoint();
+
+	AcEdJig::DragStatus GetNextPoint();
 } ;

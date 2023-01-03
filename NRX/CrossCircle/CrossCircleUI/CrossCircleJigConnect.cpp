@@ -1,4 +1,3 @@
-//-----------------------------------------------------------------------------
 #include "StdAfx.h"
 #include "CrossCircleJigConnect.h"
 
@@ -10,32 +9,31 @@ CrossCircleJigConnect:: ~ CrossCircleJigConnect()
 {
 }
 
-AcEdJig::DragStatus CrossCircleJigConnect::startJig(AcDbCrossCircle *pEntity)
+AcEdJig::DragStatus CrossCircleJigConnect::startJig(AcDbCrossCircleConnector *pEntity)
 {
 	mpCrCircle = pEntity;
-	
+
 	ACHAR* inputPrompts[2] = 
 	{
 		_T("\nЦентр круга: "),
 		_T("\nРадиус круга: ")
 	};
+
 	bool appendOk = true;
 
 	AcEdJig::DragStatus status = AcEdJig::kNull;
   
-	for ( mCurrentInputLevel =0 ; mCurrentInputLevel < 2 ; mCurrentInputLevel++ ) 
+	for (mCurrentInputLevel = 0; mCurrentInputLevel < 2; mCurrentInputLevel ++) 
 	{
-		mInputPoints.append(AcGePoint3d()) ;
-
+		mInputPoints.append(AcGePoint3d());
 		//- Set the input prompt
-		setDispPrompt (inputPrompts [mCurrentInputLevel]) ;
+		setDispPrompt (inputPrompts[mCurrentInputLevel]) ;
 
 		bool quit = false;
-
 		//- Lets now do the input
-		status =drag() ;
+		status = drag();
 
-		if ( status != kNormal ) 
+		if (status != kNormal ) 
 		{
 			switch ( status ) 
 			{
@@ -89,91 +87,86 @@ AcEdJig::DragStatus CrossCircleJigConnect::sampler()
 			| AcEdJig::kNoZeroResponseAccepted)
 	} ;
 
-	setUserInputControls (userInputControls [mCurrentInputLevel]) ;
+	setUserInputControls(userInputControls[mCurrentInputLevel]);
 
 	AcEdJig::DragStatus status =AcEdJig::kCancel ;
 
-	switch ( mCurrentInputLevel+1 )
+	switch (mCurrentInputLevel + 1)
 	{
 		case 1:
-		status =GetStartPoint () ;
-		break ;
+			status = GetStartPoint();
+			break;
 		case 2:
-		status =GetNextPoint () ;
-		break ;
+			status = GetNextPoint();
+			break ;
 		default:
-		break ;
+			break;
 	}
 
 	return (status) ;
 }
 
-
-Adesk::Boolean CrossCircleJigConnect::update ()
+Adesk::Boolean CrossCircleJigConnect::update()
 {
-  //- Check the current input number to see which update to do
-  switch ( mCurrentInputLevel+1 )
-  {
-  case 1:
-    {
-      // Acquire current UCS transformation matrix.
-      //
-      AcGeMatrix3d UcsToWcsMat;
-      acdbUcsMatrix(UcsToWcsMat);
+	switch (mCurrentInputLevel + 1)
+	{
+		case 1:
+			{
+				// Acquire current UCS transformation matrix.
+				AcGeMatrix3d UcsToWcsMat;
+				acdbUcsMatrix(UcsToWcsMat);
 
-      // Get data from user coordinate system.
-      //
-      AcGePoint3d orgPt;
-      AcGeVector3d xAxis, yAxis, zAxis;
-      UcsToWcsMat.getCoordSystem(orgPt, xAxis, yAxis, zAxis);
+				// Get data from user coordinate system.
+				AcGePoint3d orgPt;
+				AcGeVector3d xAxis, yAxis, zAxis;
+				UcsToWcsMat.getCoordSystem(orgPt, xAxis, yAxis, zAxis);
 
-      mpCrCircle->setDatabaseDefaults();
-      mpCrCircle->setCenter(mInputPoints [mCurrentInputLevel]) ;
-      mpCrCircle->setNormal(zAxis);
-    }
-    break ;
-  case 2:
-    {
-      // Plane of construction
-      AcGeVector3d acqVector = mInputPoints [mCurrentInputLevel] - mInputPoints [mCurrentInputLevel-1];
+				mpCrCircle->setDatabaseDefaults();
+				mpCrCircle->setCenter(mInputPoints[mCurrentInputLevel]) ;
+				mpCrCircle->setNormal(zAxis);
+			}
+		break;
 
-      mpCrCircle->setVecRad(acqVector.length() * acqVector.orthoProject(mpCrCircle->normal()).normalize());
-    }
-    break ;
-  default:
-    break ;
-  }
+		case 2:
+			{
+				// Plane of construction
+				AcGeVector3d acqVector = mInputPoints[mCurrentInputLevel] - mInputPoints[mCurrentInputLevel - 1];
+
+				//TODO igorab
+				// mpCrCircle->setVecRad(acqVector.length() * acqVector.orthoProject(mpCrCircle->normal()).normalize());
+			}
+			break;
+
+		default:
+			break;
+	}
 
   return (updateDimData ()) ;
 }
 
-//-----------------------------------------------------------------------------
 //- Jigged entity pointer return
 AcDbEntity *CrossCircleJigConnect::entity () const
 {
-  return ((AcDbEntity *)mpCrCircle) ;
+	return ((AcDbEntity *) mpCrCircle);
 }
 
-//-----------------------------------------------------------------------------
 //- Dynamic dimension data setup
 AcDbDimDataPtrArray *CrossCircleJigConnect::dimData (const double dimScale)
 {
-	return (NULL) ;
+	return (NULL);
 }
 
-//-----------------------------------------------------------------------------
 //- Dynamic dimension data update
 Acad::ErrorStatus CrossCircleJigConnect::setDimValue (const AcDbDimData *pDimData, const double dimValue)
 {
-	Acad::ErrorStatus es =Acad::eOk ;
+	Acad::ErrorStatus es = Acad::eOk ;
 
 	return (es);
 }
 
-//-----------------------------------------------------------------------------
 //- Various helper functions
 //- Dynamic dimdata update function
-Adesk::Boolean CrossCircleJigConnect::updateDimData ()
+Adesk::Boolean CrossCircleJigConnect::updateDimData()
 {
 	if (mDimData.length() <= 0)
 	{
@@ -183,40 +176,36 @@ Adesk::Boolean CrossCircleJigConnect::updateDimData ()
 	return (true) ;
 }
 
-//-----------------------------------------------------------------------------
 //- Std input to get a point with no rubber band
-AcEdJig::DragStatus CrossCircleJigConnect::GetStartPoint ()
+AcEdJig::DragStatus CrossCircleJigConnect::GetStartPoint()
 {
-  AcGePoint3d newPnt ;
-  
-  AcEdJig::DragStatus status =acquirePoint (newPnt) ;
-  
-  if ( status == AcEdJig::kNormal )
-  {
-	if ( newPnt.isEqualTo (mInputPoints[mCurrentInputLevel]))
-		return (AcEdJig::kNoChange);
+	AcGePoint3d newPnt ;
+	AcEdJig::DragStatus status = acquirePoint(newPnt) ;
 
-  	mInputPoints [mCurrentInputLevel] = newPnt;
-  }
+	if (status == AcEdJig::kNormal)
+	{
+		if ( newPnt.isEqualTo (mInputPoints[mCurrentInputLevel]))
+			return (AcEdJig::kNoChange);
 
-  return (status) ;
+		mInputPoints [mCurrentInputLevel] = newPnt;
+	}
+
+	return (status) ;
 }
 
-//-----------------------------------------------------------------------------
 
-AcEdJig::DragStatus CrossCircleJigConnect::GetNextPoint ()
+AcEdJig::DragStatus CrossCircleJigConnect::GetNextPoint()
 {
-  AcGePoint3d newPnt ;
-  //- Get the point 
-  AcEdJig::DragStatus status =acquirePoint (newPnt, mInputPoints [mCurrentInputLevel-1]) ;
-  //- If valid input
-  if ( status == AcEdJig::kNormal )
-  {
-    //- If there is no difference
-    if ( newPnt.isEqualTo (mInputPoints [mCurrentInputLevel]) )
-      return (AcEdJig::kNoChange) ;
-    //- Otherwise update the point
-    mInputPoints [mCurrentInputLevel] =newPnt ;
-  }
-  return (status) ;
+	AcGePoint3d newPnt ;
+	AcEdJig::DragStatus status = acquirePoint(newPnt, mInputPoints [mCurrentInputLevel - 1]);
+
+	if (status == AcEdJig::kNormal)
+	{
+		if (newPnt.isEqualTo(mInputPoints[mCurrentInputLevel]))
+		  return (AcEdJig::kNoChange);
+
+		mInputPoints[mCurrentInputLevel] = newPnt;
+	}
+
+	return (status) ;
 }

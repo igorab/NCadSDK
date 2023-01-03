@@ -1,6 +1,8 @@
 #include "StdAfx.h"
 #include "command.h"
 #include "CrossCircleJig.h"
+#include "CrossCircleJigConnect.h"
+#include "../CrossCircle/AcDbCrossCircleConnector.h"
 
 // Построение круга
 void CrCircle ()
@@ -15,9 +17,9 @@ void CrCircle ()
 //igorab
 void CrCircleConnect()
 {
-	AcDbCrossCircle *pCrCircleConnect = new AcDbCrossCircle();
+	AcDbCrossCircleConnector *pCrCircleConnect = new AcDbCrossCircleConnector();
 
-	CrossCircleJig * pCrCircleJigConnect = new CrossCircleJig();
+	CrossCircleJigConnect * pCrCircleJigConnect = new CrossCircleJigConnect();
 
 	pCrCircleJigConnect->startJig(pCrCircleConnect);
 
