@@ -3,25 +3,19 @@
 
 Adesk::UInt32 AcDbCrossCircleConnector::kCurrentVersionNumber = 1;
 
-ACRX_DXF_DEFINE_MEMBERS (
-    AcDbCrossCircleConnector, AcDbEntity,
-    AcDb::kDHL_CURRENT, AcDb::kMReleaseCurrent,
-    AcDbProxyEntity::kNoOperation, ACDBCROSSCIRCLECONNECTOR,
+ACRX_DXF_DEFINE_MEMBERS (AcDbCrossCircleConnector, AcDbEntity, AcDb::kDHL_CURRENT, AcDb::kMReleaseCurrent, AcDbProxyEntity::kNoOperation, ACDBCROSSCIRCLECONNECTOR,
 	CROSSCIRCLEAPP
 	| Product Desc : A description for your product
 	| Company : Your company name
 	| WEB Address : Your company WEB site address
 )
 
-AcDbCrossCircleConnector::AcDbCrossCircleConnector() : 
-    AcDbEntity(), m_center(AcGePoint3d::kOrigin), m_normal(AcGeVector3d::kZAxis), m_vecRadius(AcGeVector3d(20, 0, 0)), m_length(10)
+AcDbCrossCircleConnector::AcDbCrossCircleConnector() : AcDbEntity(), m_center(AcGePoint3d::kOrigin), m_normal(AcGeVector3d::kZAxis), m_vecRadius(AcGeVector3d(20, 0, 0)), m_length(10)
 {
 
 }
 
-AcDbCrossCircleConnector::AcDbCrossCircleConnector(const AcGePoint3d& center, const AcGeVector3d& normal, const AcGeVector3d& vecRadius, const double& length) :
-    AcDbEntity(), m_center(center), m_normal(normal), m_length(length)
-
+AcDbCrossCircleConnector::AcDbCrossCircleConnector(const AcGePoint3d& center, const AcGeVector3d& normal, const AcGeVector3d& vecRadius, const double& length) : AcDbEntity(), m_center(center), m_normal(normal), m_length(length)
 {
     setVecRadius(vecRadius.length() * vecRadius.orthoProject(this->normal()).normalize());
 }
@@ -110,6 +104,7 @@ Acad::ErrorStatus AcDbCrossCircleConnector::dwgOutFields(AcDbDwgFiler* pFiler) c
     assertReadEnabled();
 
     Acad::ErrorStatus es = AcDbEntity::dwgOutFields(pFiler);
+
     if (es != Acad::eOk)
         return (es);
  
@@ -129,10 +124,12 @@ Acad::ErrorStatus AcDbCrossCircleConnector::dwgInFields(AcDbDwgFiler* pFiler)
     assertWriteEnabled();
 
     Acad::ErrorStatus es = AcDbEntity::dwgInFields(pFiler);
+
     if (es != Acad::eOk)
         return (es);
  
     Adesk::UInt32 version = 0;
+
     if ((es = pFiler->readUInt32(&version)) != Acad::eOk)
         return (es);
 
@@ -159,12 +156,16 @@ Acad::ErrorStatus AcDbCrossCircleConnector::subGetGripPoints(AcGePoint3dArray& g
 
     AcGeVector3d vecRotation = m_vecRadius;
     double angle = PI / 3;
+
     for (unsigned int i = 0; i < 6; ++i)
     {
         AcGeVector3d vec = vecRotation;
+
         pntArray[i + 2] = m_center + vecRotation + m_length * vec.normalize();
+
         vecRotation = vecRotation.rotateBy(angle, AcGeVector3d::kZAxis);
     }
+
     pntArray[8] = center();
 
     gripPoints.append(pntArray);
@@ -181,7 +182,7 @@ Acad::ErrorStatus AcDbCrossCircleConnector::subMoveGripPointsAt(const AcDbIntArr
 
 	assertWriteEnabled();
 	
-    AcGeVector3d newOffset = offset*0.5;
+    AcGeVector3d newOffset = offset * 0.5;
 
     AcGeVector3d vecOrientation = m_vecRadius.normal();
 	double lenOX = vecOrientation.dotProduct(offset);
@@ -190,37 +191,44 @@ Acad::ErrorStatus AcDbCrossCircleConnector::subMoveGripPointsAt(const AcDbIntArr
     {
         switch (indices[i])
         {
-        case 0: // радиус
-            if (lenOX > 0)
-                this->setRadius(radius() + offset.length());
-            else
-                this->setRadius(radius() - offset.length());
-            break;
-        case 1: // поворот
-            this->setVecRadius(radius() * (m_vecRadius - offset).normalize());
-            break;
-        case 2: // лапки
-        case 3:
-        case 4:
-        case 5:
-        case 6:
-        case 7:
-        {
-            AcGeVector3d vecRotation = m_vecRadius;
-            double angle = PI / 3;
-            vecRotation = vecRotation.rotateBy(angle*(indices[i]-2), AcGeVector3d::kZAxis);
-            double x = vecRotation.dotProduct(offset);
-            if (x > 0) {
-                this->setLength(m_length + offset.length());
-            }
-            else {
-                this->setLength(m_length - offset.length());
-            }
-        }
-            break;
-        case 8: // центр
-            this->setCenter(m_center + newOffset);
-            break;
+	        case 0: // радиус
+	            if (lenOX > 0)
+	                this->setRadius(radius() + offset.length());
+	            else
+	                this->setRadius(radius() - offset.length());
+	            break;
+
+	        case 1: // поворот
+	            this->setVecRadius(radius() * (m_vecRadius - offset).normalize());
+	            break;
+
+	        case 2: // лапки
+	        case 3:
+	        case 4:
+	        case 5:
+	        case 6:
+	        case 7:
+		        {
+		            AcGeVector3d vecRotation = m_vecRadius;
+
+		            double angle = PI / 3;
+
+		            vecRotation = vecRotation.rotateBy(angle*(indices[i]-2), AcGeVector3d::kZAxis);
+
+		            double x = vecRotation.dotProduct(offset);
+
+		            if (x > 0) {
+		                this->setLength(m_length + offset.length());
+		            }
+		            else {
+		                this->setLength(m_length - offset.length());
+		            }
+		        }
+	            break;
+
+	        case 8: // центр
+	            this->setCenter(m_center + newOffset);
+	            break;
         }
     }
 
@@ -232,19 +240,31 @@ Adesk::Boolean AcDbCrossCircleConnector::subWorldDraw(AcGiWorldDraw* mode)
     assertReadEnabled();
 
     AcGeMatrix3d matrix = this->matrix();
+
     mode->subEntityTraits().setSelectionMarker(1);
+
     mode->geometry().pushModelTransform(matrix);
+
     mode->geometry().circle(AcGePoint3d::kOrigin, radius(), m_normal);
 
     AcGePoint3d pntArray[2];
+
     AcGeVector3d vecRotation = m_vecRadius;
+
     vecRotation.transformBy(matrix);
+
     double angle = PI / 3;
+
     for (unsigned int i = 0; i < 6; ++i) {
+
         pntArray[0] = AcGePoint3d::kOrigin + vecRotation;
+
         AcGeVector3d vec = vecRotation;
+
         pntArray[1] = pntArray[0] + m_length * vec.normalize();
+
         mode->geometry().polyline(2, pntArray);
+
         vecRotation = vecRotation.rotateBy(angle, AcGeVector3d::kZAxis);
     }
 
@@ -283,15 +303,25 @@ Acad::ErrorStatus AcDbCrossCircleConnector::subExplode(AcDbVoidPtrArray& entityS
 
     AcGeVector3d vecRotation = m_vecRadius;
     double angle = PI / 3;
+
     for (size_t i = 0; i < 6; ++i) {
+
         pt1 = (m_center + vecRotation).transformBy(matrix);
+
         AcGeVector3d vec = vecRotation;
+
         pt2 = pt1 + m_length * vec.normalize();
+
         line = new AcDbLine();
+
         line->setStartPoint(pt1);
+
         line->setEndPoint(pt2);
+
         line->setNormal(m_normal);
+
         vecRotation = vecRotation.rotateBy(angle, AcGeVector3d::kZAxis);
+
         entitySet.append(line);
     }
 
@@ -301,6 +331,8 @@ Acad::ErrorStatus AcDbCrossCircleConnector::subExplode(AcDbVoidPtrArray& entityS
 AcGeMatrix3d AcDbCrossCircleConnector::matrix() const
 {
     AcGeMatrix3d matrix;
+
     AcGeVector3d vecOrientation = m_vecRadius.normal();
+
     return matrix.setCoordSystem(m_center, vecOrientation, vecOrientation.crossProduct(m_normal), m_normal);
 }

@@ -132,8 +132,7 @@ Adesk::Boolean CrossCircleJigConnect::update()
 				// Plane of construction
 				AcGeVector3d acqVector = mInputPoints[mCurrentInputLevel] - mInputPoints[mCurrentInputLevel - 1];
 
-				//TODO igorab
-				// mpCrCircle->setVecRad(acqVector.length() * acqVector.orthoProject(mpCrCircle->normal()).normalize());
+				mpCrCircle->setVecRadius(acqVector.length() * acqVector.orthoProject(mpCrCircle->normal()).normalize()); // igorab 
 			}
 			break;
 
