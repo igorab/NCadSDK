@@ -13,8 +13,7 @@
 //----- EntryPoint
 class CCrossCircleUIApp : public AcRxArxApp
 {
-
-	public:
+public:
 	CCrossCircleUIApp () : AcRxArxApp ()
 	{
 	}
@@ -22,9 +21,9 @@ class CCrossCircleUIApp : public AcRxArxApp
 	virtual AcRx::AppRetCode On_kInitAppMsg (void *pkt)
 	{
 		if (!acrxLoadModule(CROSSCIRCLE_DBX_NAME, 0))
-		  return AcRx::kRetError;
+			return AcRx::kRetError;
 
-		AcRx::AppRetCode retCode =AcRxArxApp::On_kInitAppMsg (pkt) ;
+		AcRx::AppRetCode retCode = AcRxArxApp::On_kInitAppMsg(pkt) ;
 
 		acrxUnlockApplication(pkt);		
 		acrxDynamicLinker->registerAppMDIAware(pkt);
@@ -48,14 +47,7 @@ class CCrossCircleUIApp : public AcRxArxApp
 	// - CrossCircleUI.CrCircle command (do not rename)
 	static void CrossCircleUICrCircle(void)
 	{
-		//CrCircle(); 
-		CrCircleConnect(); // igorab
-	}
-
-	// igorab
-	static void CrossCircleUICrCircleConnect()
-	{
-		CrCircleConnect();
+		CrCircle(); 
 	}
 };
 

@@ -11,11 +11,11 @@
 #endif
 
 //----- EntryPoint
-class CCrossCircleUIApp : public AcRxArxApp
+class CCrossCircleUIHexApp : public AcRxArxApp
 {
 
 	public:
-	CCrossCircleUIApp () : AcRxArxApp ()
+	CCrossCircleUIHexApp () : AcRxArxApp ()
 	{
 	}
 
@@ -45,20 +45,13 @@ class CCrossCircleUIApp : public AcRxArxApp
 	{
 	}
 
-	// - CrossCircleUI.CrCircle command (do not rename)
-	static void CrossCircleUICrCircle(void)
-	{
-		//CrCircle(); 
-		CrCircleConnect(); // igorab
-	}
-
-	// igorab
-	static void CrossCircleUICrCircleConnect()
+	//igorab - CrossCircleUIHex.CrCircleHex command (do not rename)
+	static void CrossCircleUIHexCrCircleHex(void)
 	{
 		CrCircleConnect();
 	}
 };
 
-IMPLEMENT_ARX_ENTRYPOINT(CCrossCircleUIApp)
+IMPLEMENT_ARX_ENTRYPOINT(CCrossCircleUIHexApp)
 
-ACED_ARXCOMMAND_ENTRY_AUTO(CCrossCircleUIApp, CrossCircleUI, CrCircle, КрестКруг, ACRX_CMD_MODAL, NULL)
+ACED_ARXCOMMAND_ENTRY_AUTO(CCrossCircleUIHexApp, CrossCircleUIHex, CrCircleHex, Коннектор, ACRX_CMD_MODAL, NULL)
