@@ -44,7 +44,7 @@ public:
 	{
 	}
 
-	// - CrossCircleUI.CrCircle command (do not rename)
+	// - CrossCircleUI.CrCircleSelect command (do not rename)
 	static void CrossCircleUICrCircle(void)
 	{
 		CrCircle(); 
