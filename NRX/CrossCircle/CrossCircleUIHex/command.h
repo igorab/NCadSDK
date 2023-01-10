@@ -1,7 +1,7 @@
 // igorab
 
 
-void CrCircleSelect();
+int CrCircleSelect();
 
 
 void CrCircleConnect();
