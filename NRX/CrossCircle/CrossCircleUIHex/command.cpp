@@ -42,10 +42,37 @@ int CrCircleSelect()
 	AcGePoint3d center[6];
 	center[0] = pCrCircle->center();
 	double radius = pCrCircle->radius();
-	double angle = 0;
+	double angle = pCrCircle->angle();
+
+	AcGePoint2d c_center[6];
+	double dCx = 2*radius * sin(angle);
+	double dCy = 2*radius * cos(angle);
+
+	//центр оси вращения (переносим ось координат)
+	double C0_x = center[0].x + dCx;
+	double C0_y = center[0].y - dCy;
+
+	AcGePoint2d PO(-dCx, dCy);
+
+	c_center[0].x = PO.x;
+	c_center[0].y = PO.y;
+
+	//вращение вокруг оси
+	for (int i = 1; i < 6; i ++)
+	{
+		c_center[i].x = PO.x * cos(i * PI / 3) + PO.y * sin(i * PI / 3);
+		c_center[i].y = -PO.x * sin(i* PI / 3) + PO.y * cos(i* PI / 3);
+ 	}
+
+	//перенос оси координат назад
+	for (int i = 0; i < 6; i++)
+	{
+		center[i].x = C0_x + c_center[i].x;
+		center[i].y = C0_y + c_center[i].y;
+		center[i].z = 0;
+	}
 
 	AcDbCrossCircle* newpCrCircle[6];
-
 	newpCrCircle[0] = pCrCircle;
 
 	for (int i = 1; i < 6; i++)
@@ -54,9 +81,8 @@ int CrCircleSelect()
 		pCrCircle->copied(pCrCircle, newpCrCircle[i]);
 
 		newpCrCircle[i]->setRadius(radius);
-		center[i] = AcGePoint3d(center[0].x +i*2*radius, center[0].y, 0);
 		newpCrCircle[i]->setCenter(center[i]);
-		newpCrCircle[i]->setAngle(angle + i*PI/3);
+		newpCrCircle[i]->setAngle(angle - i*PI/3);
 	}
 
 	AcDbBlockTable* pBlockTable = NULL;

@@ -45,7 +45,7 @@ class CCrossCircleUIHexApp : public AcRxArxApp
 	{
 	}
 
-	//igorab - CrossCircleUIHex.CrCircleHex command (do not rename)
+	//igorab - CrossCircleUIHex.CrCircleHex command 
 	static void CrossCircleUIHexCrCircleHex(void)
 	{
 		CrCircleSelect();
