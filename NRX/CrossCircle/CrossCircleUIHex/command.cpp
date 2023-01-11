@@ -48,7 +48,7 @@ int CrCircleSelect()
 	double dCx = 2*radius * sin(angle);
 	double dCy = 2*radius * cos(angle);
 
-	//центр оси вращения (переносим ось координат)
+	//центр оси вращения 
 	double C0_x = center[0].x + dCx;
 	double C0_y = center[0].y - dCy;
 
@@ -111,10 +111,29 @@ int CrCircleSelect()
 
 		if (es != Acad::eOk)
 		{
-			acutPrintf(L"\nОшибка добавления к БД объекта");
+			acutPrintf(L"\nОшибка добавления к БД объекта AcDbCrossCircle");
 			return (RTNORM);
 		}
 	}
+
+	AcDbCrossCircleConnector* pCrCircleConnect = new AcDbCrossCircleConnector();
+	AcGePoint3d centerConnect(C0_x, C0_y, 0);
+	pCrCircleConnect->setCenter(centerConnect);
+	pCrCircleConnect->setRadius(2*radius);
+	AcGeVector3d vRadius(1000, 1000, 0);
+	pCrCircleConnect->setVecRadius(vRadius);
+	pCrCircleConnect->setLength(1500); // длина лучей
+	AcGeVector3d norm(0, 0, 1);
+	pCrCircleConnect->setNormal(norm);
+
+	es = pBlockTableRecord->appendAcDbEntity(pCrCircleConnect);
+
+	if (es != Acad::eOk)
+	{
+		acutPrintf(L"\nОшибка добавления к БД объекта AcDbCrossCircleConnector");
+		return (RTNORM);
+	}
+
 
 	for (int i = 1; i < 6; i++)
 		newpCrCircle[i]->close();
@@ -128,6 +147,7 @@ int CrCircleSelect()
 //igorab
 void CrCircleConnect()
 {
+	
 	AcDbCrossCircleConnector *pCrCircleConnect = new AcDbCrossCircleConnector();
 
 	CrossCircleJigConnect * pCrCircleJigConnect = new CrossCircleJigConnect();
@@ -135,5 +155,6 @@ void CrCircleConnect()
 	pCrCircleJigConnect->startJig(pCrCircleConnect);
 
 	delete pCrCircleJigConnect;
+	
 
 }
