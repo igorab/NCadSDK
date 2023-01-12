@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "command.h"
-#include "..\CrossCircle\AcDbCrossCircle.h"
+#include "../CrossCircle/AcDbCrossCircle.h"
 #include "CrossCircleJigConnect.h"
 #include "../CrossCircle/AcDbCrossCircleConnector.h"
 
@@ -10,9 +10,8 @@ AcDbEntity* selectEntity(AcDbObjectId& eId, AcDb::OpenMode openMode)
 
 	ads_name en;
 	ads_point pt;
-	acedEntSel(_RXST("\nSelect an entity: "), en, pt);
-	// Exchange the ads_name for an object ID.
-	//
+	acedEntSel(_RXST("\nУкажите объект типа CrossCircle: "), en, pt);
+	
 	es = acdbGetObjectId(eId, en);
 
 	AcDbEntity* pEnt = NULL;
@@ -24,7 +23,7 @@ AcDbEntity* selectEntity(AcDbObjectId& eId, AcDb::OpenMode openMode)
 
 	if (es != Acad::eOk)
 	{
-		acutPrintf(L"\nНе указан Entity");
+		acutPrintf(L"\nНе указан объект CrossCircle");
 	}
 
 	return pEnt;
@@ -32,7 +31,7 @@ AcDbEntity* selectEntity(AcDbObjectId& eId, AcDb::OpenMode openMode)
 
 
 //igorab запрос на селекцию существующего объекта AcDbCrossCircle
-int CrCircleSelect()
+int CrCircleSelectAndConnect()
 {
 	Acad::ErrorStatus es;
 	AcDbObjectId objId;
@@ -126,7 +125,7 @@ int CrCircleSelect()
 	AcGeVector3d vRadius(radius/4, 0, 0);
 	vRadius = vRadius.rotateBy(angle + PI/6, normal);
 	pCrCircleConnect->setVecRadius(vRadius);
-	double rayLngth = R_C0 - radius - pCrCircleConnect->radius();
+	double rayLngth = R_C0 - 1.2*radius - pCrCircleConnect->radius();
 	pCrCircleConnect->setLength(rayLngth);
 
 	es = pBlockTableRecord->appendAcDbEntity(pCrCircleConnect);
@@ -147,17 +146,17 @@ int CrCircleSelect()
 	return (RTNORM);
 }
 
-//igorab
+//igorab 
 void CrCircleConnect()
 {
-	
-	AcDbCrossCircleConnector *pCrCircleConnect = new AcDbCrossCircleConnector();
+	/*
+	 AcDbCrossCircleConnector *pCrCircleConnect = new AcDbCrossCircleConnector();
 
 	CrossCircleJigConnect * pCrCircleJigConnect = new CrossCircleJigConnect();
 
 	pCrCircleJigConnect->startJig(pCrCircleConnect);
 
 	delete pCrCircleJigConnect;
-	
+	*/
 
 }
