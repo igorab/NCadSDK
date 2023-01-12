@@ -54,6 +54,8 @@ int CrCircleSelect()
 
 	AcGePoint2d PO(-dCx, dCy);
 
+	double R_C0 = PO.asVector().length();
+
 	c_center[0].x = PO.x;
 	c_center[0].y = PO.y;
 
@@ -118,13 +120,14 @@ int CrCircleSelect()
 
 	AcDbCrossCircleConnector* pCrCircleConnect = new AcDbCrossCircleConnector();
 	AcGePoint3d centerConnect(C0_x, C0_y, 0);
+	const AcGeVector3d normal = AcGeVector3d::kZAxis;
+	pCrCircleConnect->setNormal(normal);
 	pCrCircleConnect->setCenter(centerConnect);
-	pCrCircleConnect->setRadius(2*radius);
-	AcGeVector3d vRadius(1000, 1000, 0);
+	AcGeVector3d vRadius(radius/4, 0, 0);
+	vRadius = vRadius.rotateBy(angle + PI/6, normal);
 	pCrCircleConnect->setVecRadius(vRadius);
-	pCrCircleConnect->setLength(1500); // длина лучей
-	AcGeVector3d norm(0, 0, 1);
-	pCrCircleConnect->setNormal(norm);
+	double rayLngth = R_C0 - radius - pCrCircleConnect->radius();
+	pCrCircleConnect->setLength(rayLngth);
 
 	es = pBlockTableRecord->appendAcDbEntity(pCrCircleConnect);
 
